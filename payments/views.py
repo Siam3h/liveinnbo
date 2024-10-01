@@ -78,7 +78,7 @@ def verify_payment(request):
 
         email_message.send()
 
-        return redirect('thankyou', transaction_id=transaction.id)
+        return redirect('payments/thankyou', transaction_id=transaction.id)
 
     return render(request, 'payments/payment_failed.html', {
         'message': "Payment verification failed."
