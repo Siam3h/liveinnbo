@@ -32,7 +32,7 @@ def process_payment(request, event_id):
             "email": email,
             "amount": int(amount),
             "reference": transaction.ref,
-            "callback_url": "https://084a-154-159-252-72.ngrok-free.app/payments/verify_payment"
+            "callback_url": "https://web-production-0846.up.railway.app/payments/verify_payment"
         }
 
         url = "https://api.paystack.co/transaction/initialize"
