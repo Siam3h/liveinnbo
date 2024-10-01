@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category }} | Live In NBO{% endblock title %}
+
+{% block content %}
+<div class="container mx-auto px-4 pt-24 pb-12">
+    <h1 class="text-4xl font-bold text-center text-gray-900 mb-8" style="font-family: 'Raleway', sans-serif;">
+        {{ category }} Posts
+    </h1>
+
+    <!-- Display message if no posts are found -->
+    {% if message %}
+    <p class="text-red-500 text-center text-lg font-semibold mb-8" style="font-family: 'Raleway', sans-serif;">
+        {{ message }}
+    </p>
+    {% else %}
+    <!-- Blog Posts Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for post in category_posts %}
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div class="h-48 bg-cover bg-center" style="background-image: url('{{ post.thumbnail_img.url }}')"></div>
+            <div class="p-4">
+                <h2 class="text-xl font-bold text-gray-900">
+                    {% if post.slug %}
+                    <a href="{% url 'blogpost' post.slug %}">{{ post.title }}</a>
+                    {% else %}
+                    {{ post.title }}
+                    {% endif %}
+                </h2>
+                <p class="mt-2 text-gray-600">{{ post.summary }}</p>
+                <div class="mt-4 text-sm text-gray-500">
+                    <span>{{ post.author }}</span> |
+                    <span>{{ post.time|date:"M d, Y" }}</span>
+                </div>
+                <div class="mt-4">
+                    {% if post.slug %}
+                    <a href="{% url 'blogpost' post.slug %}" class="text-blue-500 hover:text-blue-700">Read More</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <!-- Pagination Section -->
+    <div class="mt-12 flex justify-center">
+        <nav class="inline-flex shadow rounded-lg">
+            <!-- Previous Page Link -->
+            {% if category_posts.has_previous %}
+            <a href="?page={{ category_posts.previous_page_number }}" class="px-4 py-2 bg-gray-200 rounded-l-md text-gray-600 hover:bg-blue-600 hover:text-white transition duration-300">
+                &larr; Previous
+            </a>
+            {% endif %}
+
+            <!-- Current Page Info -->
+            <span class="px-4 py-2 bg-white border-t border-b text-gray-900" style="font-family: 'Raleway', sans-serif;">
+                Page {{ category_posts.number }} of {{ category_posts.paginator.num_pages }}
+            </span>
+
+            <!-- Next Page Link -->
+            {% if category_posts.has_next %}
+            <a href="?page={{ category_posts.next_page_number }}" class="px-4 py-2 bg-gray-200 rounded-r-md text-gray-600 hover:bg-blue-600 hover:text-white transition duration-300">
+                Next &rarr;
+            </a>
+            {% endif %}
+        </nav>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

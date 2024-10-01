@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Profile | Live In NBO{% endblock title %}
+
+{% block content %}
+<div class="min-h-screen bg-blue-600 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-lg w-full bg-white p-10 rounded-lg shadow-xl">
+        <h2 class="text-center text-3xl font-extrabold text-gray-900 mb-6" style="font-family: 'Raleway', sans-serif;">
+            Update Your Profile
+        </h2>
+
+        <!-- Display Django Messages (Success/Error) -->
+        {% if messages %}
+        <ul class="mb-4">
+            {% for message in messages %}
+            <li class="text-sm text-red-600 bg-red-100 p-2 rounded-lg mb-2" style="font-family: 'Raleway', sans-serif;">
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <!-- Profile Update Form -->
+        <form method="POST" class="space-y-6">
+            {% csrf_token %}
+
+            <!-- Custom Styled Form Fields -->
+            {% for field in form %}
+            <div class="mb-4">
+                <label for="{{ field.id_for_label }}" class="block border-gray-300 text-gray-700 text-sm font-bold mb-2" style="font-family: 'Raleway', sans-serif;">
+                    {{ field.label }}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                <p class="text-sm text-red-500 mt-2">{{ field.errors }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <!-- Submit Button -->
+            <div class="flex items-center justify-between">
+                <button type="submit"
+                        class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-bold rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300"
+                        style="font-family: 'Raleway', sans-serif;">
+                    Update Profile
+                </button>
+            </div>
+        </form>
+
+        <!-- Divider -->
+        <div class="my-6 border-t border-gray-300"></div>
+
+        <!-- Profile Actions Links -->
+        <div class="mt-6 text-center">
+            <p class="text-sm text-gray-600">
+                Want to change your password?
+                <a href="{% url 'password_change' %}" class="text-blue-600 hover:text-blue-700 font-semibold">
+                    Change Password
+                </a>
+            </p>
+
+            <p class="mt-4 text-sm text-gray-600">
+                Go back to the
+                <a href="{% url 'user_admin' %}" class="text-blue-600 hover:text-blue-700 font-semibold">
+                    Dashboard
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

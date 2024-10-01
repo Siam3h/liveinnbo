@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Payment Failed{% endblock title %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gray-800 text-white px-6 py-12 md:px-12 lg:px-24">
+    <div class="w-full max-w-xl bg-white text-gray-900 rounded-lg shadow-xl overflow-hidden relative">
+       
+        <!-- Content Container -->
+        <div class="relative z-10 p-8 text-center">
+            <!-- 3D Payment Failed Icon -->
+            <div class="flex justify-center mb-6">
+                <img src="https://img.icons8.com/clouds/100/000000/cancel.png" alt="Payment Failed Icon" class="h-24 w-24">
+            </div>
+
+            <!-- Error Message -->
+            <h1 class="text-4xl font-extrabold mb-4" style="font-family: 'Raleway', sans-serif;">
+                Payment Failed
+            </h1>
+            <p class="text-lg text-gray-600 mb-6" style="font-family: 'Raleway', sans-serif;">
+                Unfortunately, the payment for <span class="text-red-600 font-bold">"{{ event.title }}"</span> was not successful. Please try again or contact support if the issue persists.
+            </p>
+
+            <!-- Back to Events Button -->
+            <a href="{% url 'events' %}" class="bg-red-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-red-600 transition duration-300 shadow-lg transform hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:ring-red-500 inline-flex items-center">
+                Back to Events
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

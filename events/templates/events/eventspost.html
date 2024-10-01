@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ events.title }} | Live In NBO{% endblock title %}
+
+{% block content %}
+<!-- Single Event Post Section -->
+<div class="relative min-h-screen bg-blue-600 text-white overflow-hidden">
+    <!-- Background Image Overlay -->
+    <div class="absolute inset-0 bg-cover bg-center opacity-40" style="background-image: url('{{ events.thumbnail_img.url }}');"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-blue-700 to-transparent"></div>
+
+    <div class="relative z-10 container mx-auto px-6 py-16 lg:px-12 lg:py-24">
+        <div class="max-w-4xl mx-auto bg-white text-gray-900 rounded-lg shadow-lg overflow-hidden">
+            <!-- Event Image and Title -->
+            <div class="h-64 bg-cover bg-center" style="background-image: url('{{ events.thumbnail_img.url }}');"></div>
+            <div class="p-8 lg:p-12">
+                <!-- Event Category -->
+                <p class="text-sm font-semibold text-blue-600 uppercase mb-2" style="font-family: 'Raleway', sans-serif;">
+                    {{ events.category }}
+                </p>
+
+                <!-- Event Title -->
+                <h1 class="text-3xl lg:text-4xl font-bold mb-4" style="font-family: 'Raleway', sans-serif;">
+                    {{ events.title }}
+                </h1>
+
+                <!-- Event Details -->
+                <div class="space-y-4 mb-6">
+                    <p class="text-lg leading-relaxed text-gray-700">
+                        {{ events.description }}
+                    </p>
+
+                    <div class="text-gray-600 space-y-1">
+                        <p><strong>Date:</strong> {{ events.created_at|date:"F d, Y" }}</p>
+                        <p><strong>Location:</strong> {{ events.location }}</p>
+                        <p><strong>Category:</strong> {{ events.category }}</p>
+                        <p><strong>Price:</strong> KES {{ events.price|floatformat:2 }}</p>
+                    </div>
+                </div>
+
+                <!-- Buy Ticket Button -->
+                <div class="mt-8 flex justify-center">
+                    <a href="{% url 'process_payment' events.id %}" class="bg-red-500 text-white px-6 py-3 rounded-lg text-lg font-bold shadow-lg hover:bg-red-600 transition duration-300 inline-flex items-center"
+                       style="font-family: 'Raleway', sans-serif;">
+                        Buy Ticket
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5 ml-2">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Back to Events Button -->
+                <div class="mt-12 text-center">
+                    <a href="{% url 'events' %}" class="text-blue-600 hover:text-blue-800 font-semibold">
+                        &larr; Back to Events List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

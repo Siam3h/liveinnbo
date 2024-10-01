@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}Events | Live In NBO{% endblock title %}
+
+{% block content %}
+<section class="bg-gray-100 py-16">
+    <div class="container mx-auto px-6 lg:px-8">
+
+        <!-- Page Title and Category Buttons -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-6" style="font-family: 'Raleway', sans-serif;">Explore Our Events</h1>
+        </div>
+
+        <!-- Category Buttons -->
+        <div class="flex justify-center mb-12">
+            {% for category in categories %}
+            <a href="{% url 'eventcategory' category %}" data-category="{{ category|lower|slugify }}" class="category-btn mx-2 py-2 px-4 bg-gray-200 text-blue-600 rounded-lg hover:bg-gray-300 transition">{{ category }}</a>
+            {% endfor %}
+        </div>
+
+        <!-- Events Grid -->
+        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {% for event in events %}
+            <div class="bg-white overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <!-- Event Image -->
+                <img src="{{ event.thumbnail_img.url }}" alt="Concert" class="w-full h-48 object-cover">
+
+                <div class="p-6">
+                    <!-- Date -->
+                    <div class="flex items-center text-gray-500 mb-2">
+                        <span class="bg-red-500 text-white font-bold rounded-full py-1 px-3">{{ event.created_at|date:"M" }}</span>
+                        <span class="text-4xl font-extrabold ml-2 text-gray-800">{{ event.created_at|date:"d" }}</span>
+                    </div>
+
+                    <!-- Event Title -->
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-2">
+                        <a href="{% url 'event_detail' event.id %}" class="hover:text-red-500 transition-colors">{{ event.title }}</a>
+                    </h3>
+                    <!-- Location -->
+                    <div class="text-sm text-gray-500 mb-4">
+                        <span class="inline-flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5 text-red-500 mr-1">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c.88 0 1.615-.707 1.725-1.573.098-.787.624-1.298 1.275-1.298h1.5c.874 0 1.5.707 1.5 1.573 0 1.31-.47 2.616-1.18 3.75M9 15c-.88 0-1.615-.707-1.725-1.573-.098-.787-.624-1.298-1.275-1.298H4.5c-.874 0-1.5.707-1.5 1.573 0 1.31.47 2.616 1.18 3.75M15 19v-6c0-.707-.447-1.258-1-1.5V11a1.5 1.5 0 00-3 0v.5c-.553.242-1 .793-1 1.5v6" />
+                            </svg>
+                            {{ event.location }}
+                        </span>
+                    </div>
+
+                    <!-- Price Button -->
+                    <div class="mt-6 text-right">
+                        <a href="{% url 'process_payment' event.id %}" class="bg-red-500 text-white px-6 py-3 rounded-lg text-lg font-bold shadow-lg hover:bg-red-600 transition duration-300 inline-flex items-center">
+                            <!-- Format Price in Kenyan Shillings (KES) -->
+                            KES {{ event.price|floatformat:2 }}
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5 ml-2">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+</section>
+
+<!-- Pagination Controls -->
+<div class="pagination flex justify-center items-center space-x-4 my-8">
+    {% if events.has_previous %}
+    <a href="?page=1" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">&laquo; First</a>
+    <a href="?page={{ events.previous_page_number }}" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Previous</a>
+    {% endif %}
+
+    <span class="px-4 py-2 bg-blue-100 rounded text-blue-600">
+        Page {{ events.number }} of {{ events.paginator.num_pages }}
+    </span>
+
+    {% if events.has_next %}
+    <a href="?page={{ events.next_page_number }}" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Next</a>
+    <a href="?page={{ events.paginator.num_pages }}" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Last &raquo;</a>
+    {% endif %}
+</div>
+
+<!-- JavaScript for Category Filtering -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const eventItems = document.querySelectorAll('.event-item');
+
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const category = button.getAttribute('data-category');
+                filterEvents(category);
+            });
+        });
+
+        function filterEvents(category) {
+            eventItems.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>
+
+{% endblock %}

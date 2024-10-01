@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Thank You!{% endblock title %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-blue-600 text-white px-6 py-12 md:px-12 lg:px-24">
+    <div class="w-full max-w-xl bg-white text-gray-900 rounded-lg shadow-xl overflow-hidden relative">
+        <!-- Content Container -->
+        <div class="relative z-10 p-8 text-center">
+            <!-- 3D Thank You Icon -->
+            <div class="flex justify-center mb-6">
+                <img src="https://img.icons8.com/clouds/100/000000/thank-you.png" alt="Thank You Icon" class="h-24 w-24">
+            </div>
+
+            <!-- Thank You Message -->
+            <h1 class="text-4xl font-extrabold mb-4" style="font-family: 'Raleway', sans-serif;">
+                Thank You!
+            </h1>
+            <p class="text-lg text-gray-600 mb-6" style="font-family: 'Raleway', sans-serif;">
+                Your payment for the project <span class="text-blue-600 font-bold">"{{ event.title }}"</span> was successful.
+            </p>
+            <p class="text-lg text-gray-600 mb-6" style="font-family: 'Raleway', sans-serif;">
+                We appreciate your business. Enjoy your event!
+            </p>
+
+            <!-- Back to Events Button -->
+            <a href="{% url 'events' %}" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition duration-300 shadow-lg transform hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 inline-flex items-center">
+                Back to Events
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

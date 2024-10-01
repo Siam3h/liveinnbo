@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Newsletter</title>
+</head>
+<body>
+    <h1>Upcoming Events This Week</h1>
+    <ul>
+        {% for event in events %}
+        <li>{{ event.name }} - {{ event.date }}</li>
+        {% empty %}
+        <li>No upcoming events this week.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Recent Blog Posts</h2>
+    <ul>
+        {% for post in blog_posts %}
+        <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+        {% empty %}
+        <li>No blog posts from the last two weeks.</li>
+        {% endfor %}
+    </ul>
+
+    <p>Thank you for subscribing to our newsletter!</p>
+</body>
+</html>

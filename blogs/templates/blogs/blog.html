@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Blogs | Live In NBO {% endblock title %}
+
+{% block content %}
+
+    <!-- Main Content -->
+    <main>
+        <div class="container mx-auto px-6 py-16">
+            <h1 class="text-3xl font-bold mb-8 text-center">Blog Posts</h1>
+            <!-- Blog Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for blog in blogs %}
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <!-- Blog Image -->
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('{{ blog.thumbnail_img.url }}')"></div>
+
+                    <!-- Blog Content -->
+                    <div class="p-6">
+                        <!-- Blog Title -->
+                        <h2 class="text-2xl font-bold text-gray-900 mb-1" style="font-family: 'Raleway', sans-serif;">
+                            <a href="{% url 'blogpost'  blog.slug %}" class="hover:text-blue-600 transition-colors">{{ blog.title }}</a>
+                        </h2>
+
+                        <!-- Blog Category -->
+                        <div class="inline-block bg-blue-600 text-white text-sm font-semibold px-3 py-1 rounded-full mb-2">
+                            {{ blog.category|title }}  <!-- Displays the category in a tag -->
+                        </div>
+
+                        <!-- Blog Meta Description -->
+                        <p class="text-gray-700 text-base mb-4" style="font-family: 'Raleway', sans-serif;">
+                            {{ blog.meta|truncatewords:20 }}...
+                        </p>
+
+                        <!-- Blog Author and Date -->
+                        <div class="text-sm text-gray-500" style="font-family: 'Raleway', sans-serif;">
+                            <span class="font-medium text-gray-900">{{ blog.author }}</span> |
+                            <span>{{ blog.time|date:"M d, Y" }}</span>
+                        </div>
+
+                        <!-- Read More Button -->
+                        <div class="mt-4">
+                            <a href="{% url 'blogpost'  blog.slug %}"
+                               class="bg-red-500 text-white py-2 px-6 rounded-full text-sm font-bold shadow-lg hover:bg-red-600 transition duration-300"
+                               style="font-family: 'Raleway', sans-serif;">
+                                Read More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+
+            <!-- Pagination -->
+            <div class="mt-8">
+                <nav class="flex justify-center">
+                    <div class="inline-flex items-center">
+                        {% if blogs.has_previous %}
+                        <a href="?page={{ blogs.previous_page_number }}" class="px-3 py-2 bg-gray-200 rounded-l-md hover:bg-gray-300">Previous</a>
+                        {% endif %}
+                        <span class="px-3 py-2">{{ blogs.number }} of {{ blogs.paginator.num_pages }}</span>
+                        {% if blogs.has_next %}
+                        <a href="?page={{ blogs.next_page_number }}" class="px-3 py-2 bg-gray-200 rounded-r-md hover:bg-gray-300">Next</a>
+                        {% endif %}
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </main>
+{% endblock content %}

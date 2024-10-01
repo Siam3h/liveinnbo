@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Live In NBO{% endblock %}
+
+{% block content %}
+<div class="flex flex-col p-6 bg-gray-100 min-h-screen">
+    <h2 class="text-4xl font-bold mb-8 text-center" style="font-family: 'Raleway', sans-serif;">Dashboard</h2>
+
+    <!-- Ticket Sales Overview -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div class="bg-white shadow-lg rounded-lg p-5 flex flex-col items-center">
+            <h3 class="text-xl font-semibold text-center">Total Sales</h3>
+            <p class="text-2xl font-bold text-blue-600">$15,000</p>
+        </div>
+        <div class="bg-white shadow-lg rounded-lg p-5 flex flex-col items-center">
+            <h3 class="text-xl font-semibold text-center">Tickets Sold</h3>
+            <p class="text-2xl font-bold text-blue-600">300</p>
+        </div>
+        <div class="bg-white shadow-lg rounded-lg p-5 flex flex-col items-center">
+            <h3 class="text-xl font-semibold text-center">Upcoming Events</h3>
+            <p class="text-2xl font-bold text-blue-600">5</p>
+        </div>
+    </div>
+
+    <!-- Recent Events -->
+    <div class="bg-white shadow-lg rounded-lg p-5 mb-6">
+        <h3 class="text-xl font-semibold mb-4">Recent Events</h3>
+        <div class="space-y-4">
+            {% for event in events %}
+            {% include 'partials/event_card.html' with event=event %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Ticket Sales Overview -->
+    <div class="bg-white shadow-lg rounded-lg p-5">
+        <h3 class="text-xl font-semibold mb-4">Ticket Sales Overview</h3>
+        <div class="space-y-4">
+            {% include 'partials/ticket_sales_card.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}

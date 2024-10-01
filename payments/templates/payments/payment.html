@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Payment for {{ event.title }}{% endblock title %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-blue-600 text-white px-6 py-12 md:px-12 lg:px-24">
+    <div class="w-full max-w-2xl bg-white text-gray-900 rounded-lg shadow-xl overflow-hidden">
+        <!-- Header Section -->
+        <div class="bg-blue-600 text-white py-6 px-8">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center" style="font-family: 'Raleway', sans-serif;">
+                Secure Payment for <span class="underline">{{ event.title }}</span>
+            </h2>
+        </div>
+
+        <!-- Event Description and Price Section -->
+        <div class="p-8 md:px-12 md:py-10">
+            <p class="text-lg md:text-xl mb-6" style="font-family: 'Raleway', sans-serif;">
+                {{ event.description }}
+            </p>
+
+            <div class="bg-gray-200 rounded-lg p-4 mb-8 text-center">
+                <span class="text-lg md:text-2xl font-bold" style="font-family: 'Raleway', sans-serif;">
+                    Price: <span class="text-blue-600">KES {{ event.price }}</span>
+                </span>
+            </div>
+
+            <!-- Payment Form -->
+            <form action="{% url 'process_payment' event.id %}" method="POST" class="space-y-6">
+                {% csrf_token %}
+                <!-- Name Field -->
+                <div>
+                    <label for="name" class="block mb-2 text-gray-800 font-semibold" style="font-family: 'Raleway', sans-serif;">
+                        Full Name
+                    </label>
+                    <input type="text" name="name" id="name" placeholder="Enter your full name"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                           required>
+                </div>
+
+                <!-- Email Field -->
+                <div>
+                    <label for="email" class="block mb-2 text-gray-800 font-semibold" style="font-family: 'Raleway', sans-serif;">
+                        Email Address
+                    </label>
+                    <input type="email" name="email" id="email" placeholder="Enter your email"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                           required>
+                </div>
+
+                <!-- Phone Number Field -->
+                <div>
+                    <label for="phone" class="block mb-2 text-gray-800 font-semibold" style="font-family: 'Raleway', sans-serif;">
+                        Phone Number
+                    </label>
+                    <input type="tel" name="phone" id="phone" placeholder="e.g., +254712345678"
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                           required>
+                </div>
+
+                <!-- Payment Button -->
+                <div class="text-center">
+                    <button type="submit"
+                            class="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition duration-300 shadow-lg transform hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            style="font-family: 'Raleway', sans-serif;">
+                        Proceed to Payment
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

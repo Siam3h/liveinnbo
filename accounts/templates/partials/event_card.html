@@ -1,0 +1,7 @@
+<!-- templates/partials/event_card.html -->
+<div class="border p-4 rounded-lg hover:shadow-lg transition-shadow">
+    <h4 class="font-semibold text-lg">{{ event.title }}</h4>
+    <p class="text-gray-600">{{ event.date }} - {{ event.location }}</p>
+    <p class="mt-2">{{ event.description|truncatewords:30 }}</p>
+    <a href="{% url 'event_detail' event.id %}" class="text-blue-500 hover:underline">View Details</a>
+</div>

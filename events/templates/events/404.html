@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Not Found| Live In NBO{% endblock title %}
+
+{% block content %}
+
+{% load static %}
+
+
+<div class="container mx-auto px-4 pt-24 pb-12 text-center">
+    <!-- 3D Icon for Not Found -->
+    <img src="{% static 'images/404-page.png' %}" alt="Not Found" class="h-64 w-64 mx-auto mb-8">  <!-- Replace with your actual icon -->
+    <!-- 404 Title and Message -->
+    <h1 class="text-5xl font-bold text-gray-800 mb-8" style="font-family: 'Raleway', sans-serif;">404 Not Found</h1>
+    <p class="text-lg text-gray-600">The page you are looking for doesn't exist or has been moved.</p>
+
+    <!-- Go Back to Homepage Button -->
+    <a href="/" class="mt-8 inline-block px-6 py-3 bg-blue-600 text-white text-lg font-bold rounded-lg shadow-lg hover:bg-blue-700 transition duration-300" style="font-family: 'Raleway', sans-serif;">
+        Go to Homepage
+    </a>
+</div>
+{% endblock %}
+

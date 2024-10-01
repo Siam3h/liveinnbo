@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Results for "{{ query }}" | Live In NBO{% endblock title %}
+
+{% block content %}
+
+{% load static %}
+<div class="container mx-auto px-4 pt-24 pb-12">
+    <h1 class="text-4xl font-extrabold text-center text-gray-900 mb-12" style="font-family: 'Raleway', sans-serif;">
+        Search Results for "{{ query }}"
+    </h1>
+
+    <!-- Error or No Results Message -->
+    {% if message %}
+    <div class="flex flex-col items-center text-center">
+        <img src="{% static 'images/404-page.png' %}" alt="Not Found" class="h-64 w-64 mb-8">  <!-- Use your 3D icon here -->
+        <p class="text-red-600 text-lg font-semibold bg-red-100 p-4 rounded-md mb-8" style="font-family: 'Raleway', sans-serif;">
+            {{ message }}
+        </p>
+    </div>
+    {% endif %}
+
+    {% if results %}
+    <!-- Blog Cards Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for result in results %}
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            <!-- Blog Image -->
+            <div class="h-48 bg-cover bg-center" style="background-image: url('{{ result.thumbnail_img.url }}');"></div>
+            <div class="p-6">
+                <!-- Blog Title -->
+                <h2 class="text-2xl font-bold text-blue-600 mb-2" style="font-family: 'Raleway', sans-serif;">
+                    <a href="{{ result.get_absolute_url }}" class="hover:text-blue-700 transition duration-300">{{ result.title }}</a>
+                </h2>
+
+                <!-- Blog Meta Info -->
+                <p class="mt-2 text-gray-600">{{ result.meta }}</p>
+                <div class="mt-4 text-sm text-gray-500">
+                    <span>{{ result.author }}</span> |
+                    <span>{{ result.time|date:"M d, Y" }}</span>
+                </div>
+
+                <!-- Read More Button -->
+                <div class="mt-4">
+                    <a href="{{ result.get_absolute_url }}" class="text-blue-500 hover:text-blue-700">Read More</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <div class="mt-8">
+        <nav class="flex justify-center">
+            <div class="inline-flex items-center">
+                {% if results.has_previous %}
+                <a href="?page={{ results.previous_page_number }}" class="px-3 py-2 bg-gray-200 rounded-l-md hover:bg-gray-300">Previous</a>
+                {% endif %}
+                <span class="px-3 py-2">{{ results.number }} of {{ results.paginator.num_pages }}</span>
+                {% if results.has_next %}
+                <a href="?page={{ results.next_page_number }}" class="px-3 py-2 bg-gray-200 rounded-r-md hover:bg-gray-300">Next</a>
+                {% endif %}
+            </div>
+        </nav>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
