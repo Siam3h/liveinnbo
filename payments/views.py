@@ -7,12 +7,6 @@ from decouple import config
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 import os
-from django.core.mail import EmailMessage
-from django.template.loader import render_to_string
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Transaction
-import requests
-
 
 def process_payment(request, event_id):
     event = get_object_or_404(Event, id=event_id)
@@ -32,7 +26,7 @@ def process_payment(request, event_id):
             "email": email,
             "amount": int(amount),
             "reference": transaction.ref,
-            "callback_url": "https://web-production-0846.up.railway.app/payments/verify_payment"
+            "callback_url": "https://web-production-0846.up.railway.app/payments/verify_payment/"
         }
 
         url = "https://api.paystack.co/transaction/initialize"
@@ -48,7 +42,12 @@ def process_payment(request, event_id):
 
 
 def verify_payment(request):
-    ref = request.GET.get('reference')
+    ref = request.GET.get('reference')  
+    if not ref:
+        return render(request, 'payments/payment_failed.html', {
+            'message': "No reference provided."
+        })
+
     transaction = get_object_or_404(Transaction, ref=ref)
 
     headers = {
@@ -81,7 +80,10 @@ def verify_payment(request):
 
         return redirect('thankyou', transaction_id=transaction.id)
 
-    return render(request, 'payments/payment_failed.html')
+    return render(request, 'payments/payment_failed.html', {
+        'message': "Payment verification failed."
+    })
+
 
 def thankyou(request, transaction_id):
     transaction = get_object_or_404(Transaction, id=transaction_id, verified=True)
