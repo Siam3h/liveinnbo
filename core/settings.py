@@ -3,6 +3,7 @@ import os
 from decouple import config
 import datetime
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -18,6 +19,9 @@ PAYSTACK_SECRET_KEY = config('PAYSTACK_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+ALLOWED_HOSTS = ['.vercel.app', 'localhost']
+
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'web-production-0846.up.railway.app']
 CSRF_TRUSTED_ORIGINS = ['https://web-production-0846.up.railway.app']
@@ -114,9 +118,10 @@ USE_I18N = True
 USE_TZ = True
 
 # Static and Media files
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
 
 # Static file settings for production
 if DEBUG:
@@ -132,7 +137,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = 'your_email@gmail.com'
+DEFAULT_FROM_EMAIL = 'philosiama@gmail.com'
 
 # Authentication backends and OAuth keys
 AUTHENTICATION_BACKENDS = (
@@ -147,7 +152,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('GOOGLE_OAUTH_CLIENT_SECRET')
 SOCIAL_AUTH_FACEBOOK_KEY = config('FACEBOOK_APP_ID')
 SOCIAL_AUTH_FACEBOOK_SECRET = config('FACEBOOK_APP_SECRET')
 
-SECRET_KEY = 'your-secret-key'
-JWT_SECRET = 'your-jwt-secret'
+SECRET_KEY = 'nhggftt566433waq234trt'
+JWT_SECRET = '78uhhffvbcxzaqwegioolmn'
 JWT_ALGORITHM = 'HS256'
 JWT_EXP_DELTA_SECONDS = 3600  # 1 hour expiry
