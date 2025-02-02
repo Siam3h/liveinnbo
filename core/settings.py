@@ -11,18 +11,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = 'django-insexfregstbynt thbfa\zsdxfcgvhbjnbvccure-+r480m@z6_x@hh4w#fq6t8zqrfo8+d@2823@eu7vntl!cz=%o'
 
 # Paystack credentials
-PAYSTACK_PUBLIC_KEY = config('PAYSTACK_PUBLIC_KEY')
-PAYSTACK_SECRET_KEY = config('PAYSTACK_SECRET_KEY')
+PAYSTACK_PUBLIC_KEY = "sk_test_dbfb14cbdd52ae1ff047db500381b9583d379666"
+PAYSTACK_SECRET_KEY = "sk_test_dbfb14cbdd52ae1ff047db500381b9583d379666"
+
+PAYSTACK_BASE_URL = "https://api.paystack.co"
+
+GOOGLE_OAUTH_CLIENT_ID="830795346343-7uajlpulc4tne0f07vt39hlg0ie0n82l.apps.googleusercontent.com"
+GOOGLE_OAUTH_CLIENT_SECRET="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"
+FACEBOOK_APP_ID="881321644102910"
+FACEBOOK_APP_SECRET="96c5b0b938024e293021b932f4b8804f"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']  # For testing; restrict this in production
 
-CSRF_TRUSTED_ORIGINS = ['https://web-production-0846.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
