@@ -24,6 +24,10 @@ GOOGLE_OAUTH_CLIENT_SECRET="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"
 FACEBOOK_APP_ID="881321644102910"
 FACEBOOK_APP_SECRET="96c5b0b938024e293021b932f4b8804f"
 
+EMAIL_HOST_USER = 'philosiama@gmail.com'
+EMAIL_HOST_PASSWORD = 'ykpi fsop gekx ungh'
+DEFAULT_FROM_EMAIL = 'your_email@gmail.com'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -140,9 +144,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = 'philosiama@gmail.com'
+EMAIL_HOST_PASSWORD = 'ykpi fsop gekx ungh'
 DEFAULT_FROM_EMAIL = 'philosiama@gmail.com'
+
 
 # Authentication backends and OAuth keys
 AUTHENTICATION_BACKENDS = (
@@ -152,10 +157,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # OAuth credentials 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('GOOGLE_OAUTH_CLIENT_ID')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('GOOGLE_OAUTH_CLIENT_SECRET')
-SOCIAL_AUTH_FACEBOOK_KEY = config('FACEBOOK_APP_ID')
-SOCIAL_AUTH_FACEBOOK_SECRET = config('FACEBOOK_APP_SECRET')
+
 
 SECRET_KEY = 'nhggftt566433waq234trt'
 JWT_SECRET = '78uhhffvbcxzaqwegioolmn'
