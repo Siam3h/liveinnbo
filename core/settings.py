@@ -33,7 +33,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']  # For testing; restrict this in production
 
-CSRF_TRUSTED_ORIGINS = ['*']
+CSRF_TRUSTED_ORIGINS = ['http://126.0.0.1:8000']
 
 # Application definition
 INSTALLED_APPS = [
