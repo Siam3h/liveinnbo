@@ -31,9 +31,10 @@ DEFAULT_FROM_EMAIL = 'your_email@gmail.com'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']  # For testing; restrict this in production
+ALLOWED_HOSTS = ['liveinnbo.onrender.com']  # For testing; restrict this in production
 
-CSRF_TRUSTED_ORIGINS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://liveinnbo.onrender.com']
+
 
 # Application definition
 INSTALLED_APPS = [
