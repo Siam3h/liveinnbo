@@ -31,9 +31,14 @@ DEFAULT_FROM_EMAIL = 'your_email@gmail.com'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']  # For testing; restrict this in production
+ALLOWED_HOSTS = ['liveinnbo.onrender.com']  # For testing; restrict this in production
 
+CSRF_TRUSTED_ORIGINS = ['https://liveinnbo.onrender.com']
+
+<<<<<<< HEAD
 CSRF_TRUSTED_ORIGINS = ['http://126.0.0.1:8000']
+=======
+>>>>>>> dc57ee6588f01b3fb9d310cb87bb88765b18bdf5
 
 # Application definition
 INSTALLED_APPS = [
@@ -132,12 +137,12 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
-# Static file settings for production
-if DEBUG:
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+#STATIC_URL = '/static/'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Ensure this line is present
+
 
 # Email configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
